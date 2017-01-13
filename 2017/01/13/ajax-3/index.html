@@ -6,24 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>AJAX总结（二），手写AJAX | Stillwater的博客</title>
+  <title>AJAX总结（三），XMLHttpRequest对象 | Stillwater的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言博主博客：Stillwater的博客知乎专栏：前端汪汪本文为作者原创转载请注明出处：http://hiztx.top/2017/01/12/ajax-2/
+  <meta name="description" content="前言博主博客：Stillwater的博客知乎专栏：前端汪汪本文为作者原创转载请注明出处：http://hiztx.top/2017/01/12/ajax-3/
 
-&amp;emsp;&amp;emsp;在前端面试的时候经常会有如下情景。AJAX会吗？能不能手写个AJAX？第一个问题可以参见我的另一篇博客，AJAX总结（一），AJAX概述。这篇博文我们来回答第二个问题，手写AJAX。">
+&amp;emsp;&amp;emsp;这篇文章介绍了XMLHttpRequest对象相关知识。包括：XMLHttpRequest对象的本质，Http请求和Http响应。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="AJAX总结（二），手写AJAX">
-<meta property="og:url" content="http://yoursite.com/2017/01/12/ajax-2/index.html">
+<meta property="og:title" content="AJAX总结（三），XMLHttpRequest对象">
+<meta property="og:url" content="http://yoursite.com/2017/01/13/ajax-3/index.html">
 <meta property="og:site_name" content="Stillwater的博客">
-<meta property="og:description" content="前言博主博客：Stillwater的博客知乎专栏：前端汪汪本文为作者原创转载请注明出处：http://hiztx.top/2017/01/12/ajax-2/
+<meta property="og:description" content="前言博主博客：Stillwater的博客知乎专栏：前端汪汪本文为作者原创转载请注明出处：http://hiztx.top/2017/01/12/ajax-3/
 
-&amp;emsp;&amp;emsp;在前端面试的时候经常会有如下情景。AJAX会吗？能不能手写个AJAX？第一个问题可以参见我的另一篇博客，AJAX总结（一），AJAX概述。这篇博文我们来回答第二个问题，手写AJAX。">
-<meta property="og:updated_time" content="2017-01-13T03:26:50.619Z">
+&amp;emsp;&amp;emsp;这篇文章介绍了XMLHttpRequest对象相关知识。包括：XMLHttpRequest对象的本质，Http请求和Http响应。">
+<meta property="og:updated_time" content="2017-01-13T08:35:37.442Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="AJAX总结（二），手写AJAX">
-<meta name="twitter:description" content="前言博主博客：Stillwater的博客知乎专栏：前端汪汪本文为作者原创转载请注明出处：http://hiztx.top/2017/01/12/ajax-2/
+<meta name="twitter:title" content="AJAX总结（三），XMLHttpRequest对象">
+<meta name="twitter:description" content="前言博主博客：Stillwater的博客知乎专栏：前端汪汪本文为作者原创转载请注明出处：http://hiztx.top/2017/01/12/ajax-3/
 
-&amp;emsp;&amp;emsp;在前端面试的时候经常会有如下情景。AJAX会吗？能不能手写个AJAX？第一个问题可以参见我的另一篇博客，AJAX总结（一），AJAX概述。这篇博文我们来回答第二个问题，手写AJAX。">
+&amp;emsp;&amp;emsp;这篇文章介绍了XMLHttpRequest对象相关知识。包括：XMLHttpRequest对象的本质，Http请求和Http响应。">
   
     <link rel="alternative" href="/atom.xml" title="Stillwater的博客" type="application/atom+xml">
   
@@ -159,20 +159,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-ajax-2" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-ajax-3" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      AJAX总结（二），手写AJAX
+      AJAX总结（三），XMLHttpRequest对象
     </h1>
   
 
         
-        <a href="/2017/01/12/ajax-2/" class="archive-article-date">
-  	<time datetime="2017-01-12T08:16:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-12</time>
+        <a href="/2017/01/13/ajax-3/" class="archive-article-date">
+  	<time datetime="2017-01-13T08:33:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-13</time>
 </a>
         
       </header>
@@ -181,41 +181,56 @@
       
         
         <hr>
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><strong>博主博客：<a href="http://hiztx.top" target="_blank" rel="external">Stillwater的博客</a></strong><br><strong>知乎专栏：<a href="https://zhuanlan.zhihu.com/hiztx" target="_blank" rel="external">前端汪汪</a></strong><br><strong>本文为作者原创转载请注明出处：<a href="http://hiztx.top/2017/01/12/ajax-2/" target="_blank" rel="external">http://hiztx.top/2017/01/12/ajax-2/</a></strong></p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><strong>博主博客：<a href="http://hiztx.top" target="_blank" rel="external">Stillwater的博客</a></strong><br><strong>知乎专栏：<a href="https://zhuanlan.zhihu.com/hiztx" target="_blank" rel="external">前端汪汪</a></strong><br><strong>本文为作者原创转载请注明出处：<a href="http://hiztx.top/2017/01/12/ajax-3/" target="_blank" rel="external">http://hiztx.top/2017/01/12/ajax-3/</a></strong></p>
 <hr>
-<p>&emsp;&emsp;在前端面试的时候经常会有如下情景。AJAX会吗？能不能手写个AJAX？第一个问题可以参见我的另一篇博客，<a href="http://hiztx.top/2017/01/11/ajax-1/" target="_blank" rel="external">AJAX总结（一），AJAX概述</a>。这篇博文我们来回答第二个问题，手写AJAX。<br><a id="more"></a></p>
-<h1 id="一、手写AJAX的步骤"><a href="#一、手写AJAX的步骤" class="headerlink" title="一、手写AJAX的步骤"></a>一、手写AJAX的步骤</h1><p>&emsp;&emsp;手写AJAX并没有一个固定的标准的答案，但是AJAX的关键步骤就那么几步，我会先用文字介绍关键步骤，然后给出两个版本的手写AJAX的代码及注释。帮助大家很好地理解和记忆。</p>
-<ol>
-<li>创建XMLHttpRequest对象  </li>
-<li>指定响应函数</li>
-<li>打开连接（指定请求）</li>
-<li>发送请求</li>
-<li>创建响应函数</li>
-</ol>
-<hr>
-<p>注：第三步是使用XMLHttpRequest对象的open（）方法，字面意思open是打开的意思，即打开连接。但是准确的说应该是指定Http请求。因为浏览器在使用AJAX技术与服务通信时，发送的是Http请求，那么就要指定Http的请求方法，url等信息。</p>
-<hr>
-<h1 id="二、参考代码（W3C）"><a href="#二、参考代码（W3C）" class="headerlink" title="二、参考代码（W3C）"></a>二、参考代码（W3C）</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> xmlhttp=<span class="literal">null</span>;<span class="comment">//声明一个变量，用来实例化XMLHttpRequest对象</span></div><div class="line"><span class="keyword">if</span> (<span class="built_in">window</span>.XMLHttpRequest)</div><div class="line">  &#123;</div><div class="line">  xmlhttp=<span class="keyword">new</span> XMLHttpRequest();<span class="comment">// 新版本的浏览器可以直接创建XMLHttpRequest对象</span></div><div class="line">  &#125;</div><div class="line">  </div><div class="line"><span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">window</span>.ActiveXObject)</div><div class="line">  &#123;</div><div class="line">  xmlhttp=<span class="keyword">new</span> ActiveXObject(<span class="string">"Microsoft.XMLHTTP"</span>);<span class="comment">// IE5或IE6没有XMLHttpRequest对象，而是用的ActiveXObject对象</span></div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  </div><div class="line"><span class="keyword">if</span> (xmlhttp!=<span class="literal">null</span>)</div><div class="line">  &#123;</div><div class="line">  xmlhttp.onreadystatechange=state_Change;<span class="comment">//指定响应函数为state_Change</span></div><div class="line">  xmlhttp.open(<span class="string">"GET"</span>,<span class="string">"/example/xdom/note.xml"</span>,<span class="literal">true</span>);<span class="comment">//指定请求，这里要访问在/example/xdom路径下的note.xml文件，true代表的使用的是异步请求</span></div><div class="line">  xmlhttp.send(<span class="literal">null</span>);<span class="comment">//发送请求</span></div><div class="line">  &#125; </div><div class="line"><span class="keyword">else</span></div><div class="line">  &#123;</div><div class="line">  alert(<span class="string">"Your browser does not support XMLHTTP."</span>);</div><div class="line">  &#125;</div><div class="line"></div><div class="line"><span class="comment">//创建具体的响应函数state_Change</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">state_Change</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line"><span class="keyword">if</span> (xmlhttp.readyState==<span class="number">4</span>)</div><div class="line">  &#123;</div><div class="line">  <span class="keyword">if</span> (xmlhttp.status==<span class="number">200</span>)</div><div class="line">    &#123;</div><div class="line">    <span class="comment">// 这里应该是函数具体的逻辑</span></div><div class="line">    &#125;</div><div class="line">  <span class="keyword">else</span></div><div class="line">    &#123;</div><div class="line">    alert(<span class="string">"Problem retrieving XML data"</span>);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ol>
-<li>创建XMLHttpRequest对象 （1-10行代码） </li>
-<li>指定响应函数（第15行代码）</li>
-<li>打开连接（指定请求）（第16行代码）</li>
-<li>发送请求（第18行代码）</li>
-<li>创建响应函数（25-38行代码）</li>
-</ol>
-<p>&emsp;&emsp;这个是W3C上讲解AJAX的代码，比较权威，我做了一些注释，方便大家理解。面试的时候写这段代码应该是没有问题的。<br><a href="http://www.w3school.com.cn/xml/xml_http.asp" target="_blank" rel="external">W3C原文链接</a></p>
-<hr>
-<h1 id="三、参考代码（MDN）"><a href="#三、参考代码（MDN）" class="headerlink" title="三、参考代码（MDN）"></a>三、参考代码（MDN）</h1><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--html部分，创建一个按钮控件--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">"ajaxButton"</span> <span class="attr">style</span>=<span class="string">"cursor: pointer; text-decoration: underline"</span>&gt;</span></div><div class="line">  Make a request</div><div class="line"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript"></span></div><div class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> httpRequest;<span class="comment">//声明一个变量，用来实例化XMLHttpRequest对象</span></div><div class="line">  <span class="built_in">document</span>.getElementById(<span class="string">"ajaxButton"</span>).onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; makeRequest(<span class="string">'test.html'</span>); &#125;; <span class="comment">//这里将AJAX操作封装在makeRequest函数中，函数的参数为要请求的url，即根目录下的test.html文件。</span></div><div class="line"> </div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">makeRequest</span>(<span class="params">url</span>) </span>&#123;</div><div class="line">    httpRequest = <span class="keyword">new</span> XMLHttpRequest();<span class="comment">//创建XMLHttpRequest对象</span></div><div class="line">    <span class="keyword">if</span> (!httpRequest) &#123;</div><div class="line">      alert(<span class="string">'Giving up :( Cannot create an XMLHTTP instance'</span>);</div><div class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    httpRequest.onreadystatechange = alertContents;<span class="comment">//指定响应函数为alertContents</span></div><div class="line">    </div><div class="line">    httpRequest.open(<span class="string">'GET'</span>, url); <span class="comment">//指定请求，方法为GET，url为上面的test.html</span></div><div class="line">   </div><div class="line">    httpRequest.send();<span class="comment">//发送请求</span></div><div class="line">    </div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  </div><div class="line"><span class="comment">//创建响应函数alertContents</span></div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">alertContents</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (httpRequest.readyState === XMLHttpRequest.DONE) &#123;</div><div class="line">      <span class="keyword">if</span> (httpRequest.status === <span class="number">200</span>) &#123;</div><div class="line">        alert(httpRequest.responseText);</div><div class="line">      &#125; <span class="keyword">else</span> &#123;</div><div class="line">        alert(<span class="string">'There was a problem with the request.'</span>);</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;)();<span class="comment">//这是一个立即执行函数</span></div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-<ol>
-<li>创建XMLHttpRequest对象 （第13行代码） </li>
-<li>指定响应函数（第19行代码）</li>
-<li>打开连接（指定请求）（第21行代码）</li>
-<li>发送请求（第23行代码）</li>
-<li>创建响应函数（29-37行代码）</li>
-</ol>
-<p>&emsp;&emsp;这个是MDN上讲解AJAX的代码，我做了一些注释，方便大家理解。<br><a href="https://developer.mozilla.org/zh-CN/docs/AJAX/Getting_Started" target="_blank" rel="external">MDN原文链接</a></p>
-<hr>
-<h1 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h1><p>&emsp;&emsp;这篇文章讲解了如何较为规范的手写AJAX，下篇文章我会具体介绍XMLHttpRequest对象的有关知识以及AJAX相关的Http请求的知识。</p>
+<p>&emsp;&emsp;这篇文章介绍了XMLHttpRequest对象相关知识。包括：XMLHttpRequest对象的本质，Http请求和Http响应。<br><a id="more"></a></p>
+<h1 id="一、XMLHttpRequest对象的本质"><a href="#一、XMLHttpRequest对象的本质" class="headerlink" title="一、XMLHttpRequest对象的本质"></a>一、XMLHttpRequest对象的本质</h1><p>&emsp;&emsp;为了更好的理解XMLHttpRequest对象的本质，我们将其分成三部分来理解。顾名思义，</p>
+<blockquote>
+<p>XMLHttpRequest = XML + Http + Request 。</p>
+</blockquote>
+<p>###什么是XML？<br>&emsp;&emsp;XML设计用来传送及携带数据信息，不用来表现或展示数据，HTML语言则用来表现数据，所以XML用途的焦点是它说明数据是什么，以及携带数据信息。XML被广泛用来作为跨平台之间交互数据的形式，主要针对数据的内容。<br>&emsp;&emsp;例如，XML定义结构、存储信息、传送信息。下例为小张发送给大元的便条，存储为XML。这XML文档仅是纯粹的信息标签，这些标签意义的展开依赖于应用它的程序。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">小纸条</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">收件人</span>&gt;</span>大元<span class="tag">&lt;/<span class="name">收件人</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">發件人</span>&gt;</span>小張<span class="tag">&lt;/<span class="name">發件人</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">主題</span>&gt;</span>問候<span class="tag">&lt;/<span class="name">主題</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">具體內容</span>&gt;</span>早啊，飯吃了沒？ <span class="tag">&lt;/<span class="name">具體內容</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">小纸条</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>###什么是Http？<br>&emsp;&emsp;超文本传输协议（英文：HyperText Transfer Protocol，缩写：HTTP）是互联网上应用最为广泛的一种网络协议。设计HTTP最初的目的是为了提供一种发布和接收HTML页面的方法。本文后面会详细介绍AJAX技术相关的Http知识。</p>
+<p>###什么是Request？<br>&emsp;&emsp;Request翻译为请求，这个大家都知道。但是很多人会误解，只有用浏览器（Chrome，Safari，IE），我们才能向服务器发送Http请求。这是不对的。我们换个角度，从服务器的角度思考。当服务器收到全世界各地发来的Http请求的时候，它并不知道屏幕的对面是谁，有可能是正在网上冲浪的你，也有可能仅仅是一只网络爬虫，甚至有可能就是我们编写的AJAX程序中的XMLHttpRequest对象而已。</p>
+<p>&emsp;&emsp;回到我们的问题，XMLHttpRequest对象的本质是什么？</p>
+<blockquote>
+<p>是一个可以发送Http请求，处理Http响应，与服务器之间进行异步交换数据的对象，其核心是Http。</p>
+</blockquote>
+<p>&emsp;&emsp;所以要想深入理解XMLHttpRequest对象，那就要学习一些Http的知识了。请往下看。</p>
+<h1 id="二、Http请求"><a href="#二、Http请求" class="headerlink" title="二、Http请求"></a>二、Http请求</h1><p>一个Http请求由4部分组成：</p>
+<ul>
+<li>Http请求方法（GET、POST、DELETE、PUT）</li>
+<li>正在请求的URL（/home/index.html）</li>
+<li>请求头（可选）</li>
+<li>请求主体（可选）</li>
+</ul>
+<p>创建XMLHttpRequest对象之后，发起Http请求的下一步是调用XMLHttpRequest对象的open()方法去指定这个请求的两个必要部分：请求方法和URL。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">request.open(<span class="string">"GET"</span>,/home/index.html);<span class="comment">//请求方法：GET，URL：/home/index.html</span></div></pre></td></tr></table></figure></p>
+<p>open()的第一个参数指定Http请求方法，通常用大写字母来匹配Http协议。open()的第二个参数是URL，是请求的主要内容。如果有请求头的话，请求进程的下一个步骤是设置它。例如，POST请求需要“Content-type”。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">request.setRequestHeader(<span class="string">"Content-type"</span>,<span class="string">"text/plain"</span>);</div></pre></td></tr></table></figure></p>
+<p> 使用XMLHttpRequest发起Http请求的最后一步是指定请求主体（可选）并向服务器发送它。使用send()方法像如下这样做：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">request.send(<span class="literal">null</span>);</div></pre></td></tr></table></figure></p>
+<p>GET请求没有主体，所以应该传递null或省略这个参数。</p>
+<blockquote>
+<p>Http请求的各部分有指定顺序：请求方法和URL首先到达，然后是请求头，最后是请求主体。调用XMLHttpRequest方法的顺序必须匹配Http请求的顺序。例如：setRequestHeader()方法的调用必须在open()方法之后，send()方法之前，否则将抛出异常。</p>
+</blockquote>
+<p>例：用POST方法发送纯文本给服务器<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">postMessage</span>(<span class="params">msg</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> request = <span class="keyword">new</span> XMLHttpRequest();    <span class="comment">//创建新请求</span></div><div class="line">    request.open(<span class="string">"POST"</span>,<span class="string">"/log.php"</span>);       <span class="comment">//用POST向服务器端发送脚本</span></div><div class="line">    request.setRequestHeader(<span class="string">"Content-type"</span>,<span class="string">"text/plain;charset=UTF-8"</span>);        <span class="comment">//请求头设置</span></div><div class="line">    request.send(msg);              <span class="comment">//把msg作为请求主体发送</span></div><div class="line">    &#125;                               <span class="comment">//由于没有指定响应函数，所以我们将忽略任何响应</span></div></pre></td></tr></table></figure></p>
+<h1 id="三、Http响应"><a href="#三、Http响应" class="headerlink" title="三、Http响应"></a>三、Http响应</h1><p>服务器返回的Http响应包含3部分：</p>
+<ul>
+<li>数字和文字组成的状态码，用来显示请求的成功和失败</li>
+<li>响应头</li>
+<li>响应主体</li>
+</ul>
+<p>我们可以通过XMLHttpRequest对象的属性和方法来获取上述响应包括的三个部分。</p>
+<ul>
+<li>status和statusText属性以数字和文本的形式返回Http状态码。</li>
+<li>使用getResponseHeader()和getAllResponseHeaders()能查询响应头。</li>
+<li>响应主体可以从responseText属性中得到文本形式的，从responseXML属性中得到Document形式的。</li>
+<li>readyState是一个整数，指定了Http请求的状态。</li>
+</ul>
+<p>表：XMLHttpRequest的readyState值<br>|常量|值|含义|<br>|:—-:|:—-:|:—-:|<br>|UNSENT|0|open()尚未调用|<br>|OPENED|1|open()已经调用|<br>|HEADERS_RECEIVED|2|接收到头信息|<br>|LOADING|3|接收到响应主体|<br>|DONE|4|响应完成|</p>
+<p>为了监听readystatechange事件，请把事件处理函数设置为XMLHttpRequest对象的onreadystatechange属性。</p>
+<p>例：获取Http响应的onreadystatechange<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//发出一个Http GET请求以获得指定URL的内容</span></div><div class="line"><span class="comment">//当响应成功到达，验证它是否是纯文本</span></div><div class="line"><span class="comment">//如果是，把它传递给指定回调函数</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getText</span>(<span class="params">url,callback</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> request = <span class="keyword">new</span> XMLHttpRequest();         <span class="comment">//创建新请求</span></div><div class="line">    request.open(<span class="string">"GET"</span>,url);            <span class="comment">//指定待获取的URL</span></div><div class="line">    request.onreadystatechange = funciton()&#123;            <span class="comment">//定义事件处理函数</span></div><div class="line">        <span class="keyword">if</span> (request.readyState===<span class="number">4</span>&amp;&amp;request.status===<span class="number">200</span>&#123;           <span class="comment">//如果请求完成，则它是成功的</span></div><div class="line">            <span class="keyword">var</span> type = request.getResponseHeader(<span class="string">"Content-Type"</span>);</div><div class="line">            <span class="keyword">if</span>(type.match(<span class="regexp">/^text/</span>))             <span class="comment">//确保响应是文本</span></div><div class="line">                callback(request.responseText);             <span class="comment">//把它传递给回调函数</span></div><div class="line">            &#125;</div><div class="line">        &#125;;</div><div class="line">        request.send(<span class="literal">null</span>)          <span class="comment">//立即发送请求</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>#四、总结<br>本文介绍了XMLHttpRequest对象的本质是一个可以发送Http请求，处理Http响应，与服务器之间进行异步交换数据的对象，其核心是Http。然后介绍了Http请求和响应包括的具体内容。Http请求包括：方法，URL，请求头，请求主体。Http响应包：状态码，响应头和响应主体。</p>
+<blockquote>
+<p>参考文献：<br><a href="http://hiztx.top" target="_blank" rel="external">1</a>维基百科<br><a href="https://zhuanlan.zhihu.com/hiztx" target="_blank" rel="external">2</a>JavaScript权威指南</p>
+</blockquote>
 
       
 
@@ -305,7 +320,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/01/12/ajax-2/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/01/13/ajax-3/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -319,18 +334,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/01/13/ajax-3/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          AJAX总结（三），XMLHttpRequest对象
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/01/11/ajax-1/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">AJAX总结（一），AJAX概述</div>
+    <a href="/2017/01/12/ajax-2/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">AJAX总结（二），手写AJAX</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -344,7 +350,7 @@
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="ajax-2" data-title="AJAX总结（二），手写AJAX" data-url="http://yoursite.com/2017/01/12/ajax-2/"></div>
+	<div class="ds-thread" data-thread-key="ajax-3" data-title="AJAX总结（三），XMLHttpRequest对象" data-url="http://yoursite.com/2017/01/13/ajax-3/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
