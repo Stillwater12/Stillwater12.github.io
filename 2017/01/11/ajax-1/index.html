@@ -8,19 +8,22 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>AJAX总结（一），AJAX概述 | Stillwater的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="博主博客：Stillwater的博客知乎专栏：前端汪汪本文为作者原创转载请注明出处：http://hiztx.top/2017/01/11/ajax-1/
-一、什么是AJAX？AJAX即“Asynchronous JavaScript and XML”（异步的JavaScript与XML技术），指的是一套综合了多项技术的浏览器端网页开发技术。是一种用来创建交互式网页应用的网页开发技术。之所以说A">
+  <meta name="description" content="前言博主博客：Stillwater的博客知乎专栏：前端汪汪本文为作者原创转载请注明出处：http://hiztx.top/2017/01/11/ajax-1/
+
+&amp;emsp;&amp;emsp;介绍了什么是AJAX？为什么要用AJAX？以及AJAX有什么优缺点。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="AJAX总结（一），AJAX概述">
 <meta property="og:url" content="http://yoursite.com/2017/01/11/ajax-1/index.html">
 <meta property="og:site_name" content="Stillwater的博客">
-<meta property="og:description" content="博主博客：Stillwater的博客知乎专栏：前端汪汪本文为作者原创转载请注明出处：http://hiztx.top/2017/01/11/ajax-1/
-一、什么是AJAX？AJAX即“Asynchronous JavaScript and XML”（异步的JavaScript与XML技术），指的是一套综合了多项技术的浏览器端网页开发技术。是一种用来创建交互式网页应用的网页开发技术。之所以说A">
-<meta property="og:updated_time" content="2017-01-13T03:16:55.958Z">
+<meta property="og:description" content="前言博主博客：Stillwater的博客知乎专栏：前端汪汪本文为作者原创转载请注明出处：http://hiztx.top/2017/01/11/ajax-1/
+
+&amp;emsp;&amp;emsp;介绍了什么是AJAX？为什么要用AJAX？以及AJAX有什么优缺点。">
+<meta property="og:updated_time" content="2017-01-13T03:22:31.282Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AJAX总结（一），AJAX概述">
-<meta name="twitter:description" content="博主博客：Stillwater的博客知乎专栏：前端汪汪本文为作者原创转载请注明出处：http://hiztx.top/2017/01/11/ajax-1/
-一、什么是AJAX？AJAX即“Asynchronous JavaScript and XML”（异步的JavaScript与XML技术），指的是一套综合了多项技术的浏览器端网页开发技术。是一种用来创建交互式网页应用的网页开发技术。之所以说A">
+<meta name="twitter:description" content="前言博主博客：Stillwater的博客知乎专栏：前端汪汪本文为作者原创转载请注明出处：http://hiztx.top/2017/01/11/ajax-1/
+
+&amp;emsp;&amp;emsp;介绍了什么是AJAX？为什么要用AJAX？以及AJAX有什么优缺点。">
   
     <link rel="alternative" href="/atom.xml" title="Stillwater的博客" type="application/atom+xml">
   
@@ -178,7 +181,11 @@
       
         
         <hr>
-<p><strong>博主博客：<a href="http://hiztx.top" target="_blank" rel="external">Stillwater的博客</a></strong><br><strong>知乎专栏：<a href="https://zhuanlan.zhihu.com/hiztx" target="_blank" rel="external">前端汪汪</a></strong><br><strong>本文为作者原创转载请注明出处：<br><a href="http://hiztx.top/2017/01/11/ajax-1/" target="_blank" rel="external">http://hiztx.top/2017/01/11/ajax-1/</a></strong></p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><strong>博主博客：<a href="http://hiztx.top" target="_blank" rel="external">Stillwater的博客</a></strong><br><strong>知乎专栏：<a href="https://zhuanlan.zhihu.com/hiztx" target="_blank" rel="external">前端汪汪</a></strong><br><strong>本文为作者原创转载请注明出处：<a href="http://hiztx.top/2017/01/11/ajax-1/" target="_blank" rel="external">http://hiztx.top/2017/01/11/ajax-1/</a></strong></p>
+<hr>
+<p>&emsp;&emsp;介绍了什么是AJAX？为什么要用AJAX？以及AJAX有什么优缺点。</p>
+<hr>
+<a id="more"></a>
 <h1 id="一、什么是AJAX？"><a href="#一、什么是AJAX？" class="headerlink" title="一、什么是AJAX？"></a>一、什么是AJAX？</h1><p>AJAX即“Asynchronous JavaScript and XML”（异步的JavaScript与XML技术），指的是一套<code>综合了多项技术</code>的浏览器端网页开发技术。是一种用来创建<code>交互式网页应用</code>的网页开发技术。之所以说AJAX是一项综合技术，是因为AJAX包含了以下技术：</p>
 <ul>
 <li>基于HTML和CSS进行表示；</li>
@@ -187,7 +194,7 @@
 <li>使用 XMLHttpRequest 进行异步数据查询、检索；</li>
 <li>使用 JavaScript 将所有的东西绑定在一起。</li>
 </ul>
-<p>注：asynchronous  异步的<br>英 [eɪˈsɪŋkrənəs]  美 [e’sɪŋkrənəs]<br><a id="more"></a></p>
+<p>注：asynchronous  异步的<br>英 [eɪˈsɪŋkrənəs]  美 [e’sɪŋkrənəs] </p>
 <h1 id="二、为什么要用AJAX？"><a href="#二、为什么要用AJAX？" class="headerlink" title="二、为什么要用AJAX？"></a>二、为什么要用AJAX？</h1><h2 id="传统Web应用存在的问题"><a href="#传统Web应用存在的问题" class="headerlink" title="传统Web应用存在的问题"></a>传统Web应用存在的问题</h2><ol>
 <li>传统的Web应用提交表单时会向网页服务器发送一个请求。服务器接收并处理传来的表单，然后送回一个<code>新的网页</code>。但这个做法浪费了许多带宽，因为在前后两个页面中的大部分HTML码往往是<code>相同的</code>。</li>
 <li>由于每次应用的沟通都需要向服务器发送请求，应用的回应时间依赖于服务器的回应时间。这导致了用户界面的回应比本机应用慢得多。即<code>同步请求</code>，浏览器需要<code>等待</code>服务器处理请求，导致了浏览器端的<code>阻塞</code>。<h2 id="AJAX的出现解决的问题"><a href="#AJAX的出现解决的问题" class="headerlink" title="AJAX的出现解决的问题"></a>AJAX的出现解决的问题</h2></li>
