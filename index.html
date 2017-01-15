@@ -171,52 +171,11 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
         <hr>
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><strong>博主博客：<a href="http://hiztx.top" target="_blank" rel="external">Stillwater的博客</a></strong><br><strong>知乎专栏：<a href="https://zhuanlan.zhihu.com/hiztx" target="_blank" rel="external">前端汪汪</a></strong><br><strong>本文为作者原创转载请注明出处：</strong></p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><strong>博主博客：<a href="http://hiztx.top">Stillwater的博客</a></strong><br><strong>知乎专栏：<a href="https://zhuanlan.zhihu.com/hiztx">前端汪汪</a></strong><br><strong>本文为作者原创转载请注明出处：<a href="http://hiztx.top/2017/01/15/jsonp/">http://hiztx.top/2017/01/15/jsonp/</a></strong></p>
 <hr>
-<p>&emsp;&emsp;本文介绍了什么是跨域，为什么要跨域，以及跨域的一种常用方法JSONP的原理。</p>
-<h1 id="一、什么是跨域？为什么要跨域？"><a href="#一、什么是跨域？为什么要跨域？" class="headerlink" title="一、什么是跨域？为什么要跨域？"></a>一、什么是跨域？为什么要跨域？</h1><h2 id="什么是跨域？"><a href="#什么是跨域？" class="headerlink" title="什么是跨域？"></a>什么是跨域？</h2><p>&emsp;&emsp;既然是跨域，那么肯定是从一个域到另一个域。那么首先要知道满足什么条件才是同一个域。如果两个页面拥有相同的协议，端口和域名，那么这两个页面就属于同一个源（origin），JavaScript允许这种同源页面的数据互相通信。例如你要访问<a href="https://www.baidu.com/" target="_blank" rel="external">百度首页</a>。</p>
-<blockquote>
-<p><a href="https://www.baidu.com" target="_blank" rel="external">https://www.baidu.com</a><br>https是协议<br>https协议的默认端口为443（不显示）<br>www.baidu.com为域名</p>
-</blockquote>
-<p>注：一般端口默认为不显示，但是你可以尝试输入<a href="https://www.baidu.com:80，发现无法访问。因为80端口默认为http协议端口。" target="_blank" rel="external">https://www.baidu.com:80，发现无法访问。因为80端口默认为http协议端口。</a></p>
-<p>&emsp;&emsp;现在知道了什么是同一个域，那么就可以解释什么是跨域。只要协议、域名、端口有任何一个不同，都被当作是不同的域，之间的请求就是跨域操作。</p>
-<h2 id="为什么要跨域？"><a href="#为什么要跨域？" class="headerlink" title="为什么要跨域？"></a>为什么要跨域？</h2><p>&emsp;&emsp;相信很多人都听过，<strong>同源策略</strong>。出于安全考虑，浏览器对JavaScript的很多功能进行了限制，其中一条就是，不同域之间不予许进行数据通信。虽然补全了安全漏洞，但是这个限制给前端开发带来了许多不便。例如：</p>
-<blockquote>
-<p>zhidao.baidu.com<br>wenku.baidu.com</p>
-</blockquote>
-<p>&emsp;&emsp;百度知道和百度文库大家都不陌生，都是百度开发的web服务。虽然这两个都是李彦宏的，但是现在告诉他，由于你这两个域名的三级域名不一样，不允许相互数据通信。你说不行就不行？于是就有像李彦宏这样的大牛搞出一些黑科技专门用来跨域通信。JSONP就是其中之一。</p>
-<blockquote>
-<p>注：<br>1.com为顶级域名，baidu为二级域名，zhidao/wenku为三级域名<br>2.跨域并非浏览器限制了发起跨站请求，而是跨站请求可以正常发起，但返回结果被浏览器拦截了。</p>
-</blockquote>
-<h1 id="二、什么是JSONP？"><a href="#二、什么是JSONP？" class="headerlink" title="二、什么是JSONP？"></a>二、什么是JSONP？</h1><p>顾名思义：</p>
-<blockquote>
-<p>JSONP = JSON + P</p>
-</blockquote>
-<p>&emsp;&emsp;JSONP（JSON with Padding），JSON是一种轻量级的数据交换格式。而Padding在这里可以翻译为<code>填充</code>。那么JSONP的意思就是，填充的JSON。是数据格式JSON的一种<code>使用模式</code>，可以让网页从别的网域要数据。</p>
-<h1 id="三、JSONP原理"><a href="#三、JSONP原理" class="headerlink" title="三、JSONP原理"></a>三、JSONP原理</h1><blockquote>
-<p>JSONP的核心原理就是，HTML的script标签可以加载并执行其他域JS文件。</p>
-</blockquote>
-<p>&emsp;&emsp;这里区分两个概念，当我们用浏览器打开<code>百度知道</code>首页的时候，是向<code>百度知道</code>服务器发送了一个Https请求，获取到<code>百度知道</code>首页的index.html。如果在这个index.html里面用XMLHttpRequest对象向<code>百度文库</code>服务器发送Https请求，那么就属于跨域，是不允许的。但是如果在<code>百度知道</code>首页的index.html中加入一个<script>标签，其src属性指向<code>百度文库</code>中的一个.json文件，是允许的。<br>&emsp;&emsp;为了理解这种模式的原理，先想像有一个回传JSON文件的URL，而JavaScript 程序可以用XMLHttpRequest跟这个URL要数据。假设我们的URL是 <a href="http://server2.example.com/RetrieveUser?UserId=xxx">http://server2.example.com/RetrieveUser?UserId=xxx</a> 。假设小明的UserId 是1823，且当浏览器通过URL传小明的UserId，也就是抓取<a href="http://server2.example.com/RetrieveUser?UserId=1823，得到：">http://server2.example.com/RetrieveUser?UserId=1823，得到：</a><br><figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;<span class="attr">"Name"</span>: <span class="string">"小明"</span>,</div><div class="line"> <span class="attr">"Id"</span>: <span class="number">1823</span>,</div><div class="line"> <span class="attr">"Rank"</span>: <span class="number">7</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;这个JSON数据可能是依据传过去URL的查询参数动态产生的。这个时候，把 <script>元素的src属性设成一个回传JSON的URL是可以想像的，这也代表从HTML页面通过script元素抓取JSON是可能的。然而，一份JSON文件并不是一个JavaScript程序。为了让浏览器可以在 <script>元素运行，从src里URL回传的必须是可运行的JavaScript。在JSONP的使用模式里，该URL回传的是由函数调用包起来的动态生成JSON，这就是JSONP的“填充（padding）”或是“前辍（prefix）”的由来。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span></div><div class="line">         <span class="attr">src</span>=<span class="string">"http://server2.example.com/RetrieveUser?UserId=1823&amp;jsonp=parseResponse"</span>&gt;</span><span class="undefined"></div><div class="line"> </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;服务器会在传给浏览器前将JSON数据填充到回调函数（parseResponse）中。浏览器得到的回应已不是单纯的数据叙述而是一个脚本。在本例中，浏览器得到的是：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    parseResponse(</div><div class="line">        &#123;</div><div class="line">         <span class="string">"Name"</span>: <span class="string">"小明"</span>,</div><div class="line">         <span class="string">"Id"</span>: <span class="number">1823</span>,</div><div class="line">         <span class="string">"Rank"</span>: <span class="number">7</span></div><div class="line">         &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>&emsp;&emsp;也就是说，一般情况下浏览器向服务器发送请求得到的都是数据（文本，XML，JSON），但是当采用JSONP技术时候，浏览器向跨域服务器发送请求，得到的是回调函数包住的JSON。此处JSON作为参数传入回调函数，然后再返回给浏览器。</p>
-<h2 id="再举个例子："><a href="#再举个例子：" class="headerlink" title="再举个例子："></a>再举个例子：</h2><p>浏览器端：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">  <span class="comment">&lt;!--声明jsonpcallback回调函数，参数为json数据--&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="xml"></div><div class="line">    function jsonpcallback(json) &#123;</div><div class="line">      console.log(json);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">&lt;!--创建一个&lt;script&gt;标签，设置src为一个跨域的URL，并指定回调函数为jsonpcallback--&gt;</span></div><div class="line">    var s = document.createElement('script');</div><div class="line">    s.src="http://localhost:8080/test.php?callback=jsonpcallback";</div><div class="line">    document.body.appendChild(s);</div><div class="line">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<p>服务器端：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">  $jsondata = '&#123;</div><div class="line">    "name": "Stillwater",</div><div class="line">    "age": 12</div><div class="line">  &#125;';</div><div class="line">  echo $_GET['callback'].'('.$jsondata.')';</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
-<p>返回：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">jsonpcallback(</div><div class="line">    &#123;</div><div class="line">        <span class="string">"name"</span>: <span class="string">"Stillwater"</span>,</div><div class="line">        <span class="string">"age"</span>: <span class="number">12</span></div><div class="line">    &#125;</div><div class="line">    )</div></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;在这个例子中，浏览器向服务器发出跨域请求（”<a href="http://localhost:8080/test.php?callback=jsonpcallback&quot;），请求一个json数据，{&quot;name">http://localhost:8080/test.php?callback=jsonpcallback&quot;），请求一个json数据，{&quot;name</a>“: “Stillwater”,”age”: 12}，并且告诉了服务器回调函数的名字。服务器接收到请求后，就将json数据作为参数填充到回调函数中，返回给浏览器。最终返回一个填充了json数据的回调函数。</p>
-<h1 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h1><ol>
-<li>首先在客户端注册一个callback，然后把callback的名字传给服务器。</li>
-<li>服务器先生成json数据。然后以Javascript语法的方式，生成一个function ，function名字就是传递上来的参数callback。 最后将json数据直接以入参的方式，放置到function中，这样就生成了一段 js 语法的文档，返回给客户端。</li>
-<li>客户端浏览器，解析script标签，并执行返回的Javascript 文档，此时数据作为参数，传入到了客户端预先定义好的callback 函数里。（动态执行回调函数）</li>
-</ol>
-<p>参考链接：</p>
-<blockquote>
-<p><a href="https://zh.wikipedia.org/wiki/JSONP">https://zh.wikipedia.org/wiki/JSONP</a><br><a href="http://www.cnblogs.com/zichi/p/4593047.html">http://www.cnblogs.com/zichi/p/4593047.html</a><br><a href="http://tech.jandou.com/cross-domain.html">http://tech.jandou.com/cross-domain.html</a><br><a href="https://segmentfault.com/a/1190000003642057">https://segmentfault.com/a/1190000003642057</a><br><a href="http://wearejq.github.io/2015/07/18/kuayu/">http://wearejq.github.io/2015/07/18/kuayu/</a></p>
-</blockquote>
-</script></p>
+<p>&emsp;&emsp;本文介绍了什么是跨域，为什么要跨域，以及跨域的一种常用方法JSONP的原理。<br>
+        
       
 
       

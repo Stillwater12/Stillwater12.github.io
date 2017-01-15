@@ -8,25 +8,22 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>跨域方法总结（一），JSONP | Stillwater的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言博主博客：Stillwater的博客知乎专栏：前端汪汪本文为作者原创转载请注明出处：
+  <meta name="description" content="前言博主博客：Stillwater的博客知乎专栏：前端汪汪本文为作者原创转载请注明出处：http://hiztx.top/2017/01/15/jsonp/
 
-&amp;emsp;&amp;emsp;本文介绍了什么是跨域，为什么要跨域，以及跨域的一种常用方法JSONP的原理。
-一、什么是跨域？为什么要跨域？什么是跨域？&amp;emsp;&amp;emsp;既然是跨域，那么肯定是从一个域到另一个域。那么首先要知道满足什么条件才是同一个域。如果两个页面拥有相同的协议，端口和域名，那么这两个页面就">
+&amp;emsp;&amp;emsp;本文介绍了什么是跨域，为什么要跨域，以及跨域的一种常用方法JSONP的原理。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="跨域方法总结（一），JSONP">
 <meta property="og:url" content="http://yoursite.com/2017/01/15/jsonp/index.html">
 <meta property="og:site_name" content="Stillwater的博客">
-<meta property="og:description" content="前言博主博客：Stillwater的博客知乎专栏：前端汪汪本文为作者原创转载请注明出处：
+<meta property="og:description" content="前言博主博客：Stillwater的博客知乎专栏：前端汪汪本文为作者原创转载请注明出处：http://hiztx.top/2017/01/15/jsonp/
 
-&amp;emsp;&amp;emsp;本文介绍了什么是跨域，为什么要跨域，以及跨域的一种常用方法JSONP的原理。
-一、什么是跨域？为什么要跨域？什么是跨域？&amp;emsp;&amp;emsp;既然是跨域，那么肯定是从一个域到另一个域。那么首先要知道满足什么条件才是同一个域。如果两个页面拥有相同的协议，端口和域名，那么这两个页面就">
-<meta property="og:updated_time" content="2017-01-15T02:28:30.000Z">
+&amp;emsp;&amp;emsp;本文介绍了什么是跨域，为什么要跨域，以及跨域的一种常用方法JSONP的原理。">
+<meta property="og:updated_time" content="2017-01-15T02:30:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="跨域方法总结（一），JSONP">
-<meta name="twitter:description" content="前言博主博客：Stillwater的博客知乎专栏：前端汪汪本文为作者原创转载请注明出处：
+<meta name="twitter:description" content="前言博主博客：Stillwater的博客知乎专栏：前端汪汪本文为作者原创转载请注明出处：http://hiztx.top/2017/01/15/jsonp/
 
-&amp;emsp;&amp;emsp;本文介绍了什么是跨域，为什么要跨域，以及跨域的一种常用方法JSONP的原理。
-一、什么是跨域？为什么要跨域？什么是跨域？&amp;emsp;&amp;emsp;既然是跨域，那么肯定是从一个域到另一个域。那么首先要知道满足什么条件才是同一个域。如果两个页面拥有相同的协议，端口和域名，那么这两个页面就">
+&amp;emsp;&amp;emsp;本文介绍了什么是跨域，为什么要跨域，以及跨域的一种常用方法JSONP的原理。">
   
     <link rel="alternative" href="/atom.xml" title="Stillwater的博客" type="application/atom+xml">
   
@@ -184,9 +181,9 @@
       
         
         <hr>
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><strong>博主博客：<a href="http://hiztx.top" target="_blank" rel="external">Stillwater的博客</a></strong><br><strong>知乎专栏：<a href="https://zhuanlan.zhihu.com/hiztx" target="_blank" rel="external">前端汪汪</a></strong><br><strong>本文为作者原创转载请注明出处：</strong></p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><strong>博主博客：<a href="http://hiztx.top" target="_blank" rel="external">Stillwater的博客</a></strong><br><strong>知乎专栏：<a href="https://zhuanlan.zhihu.com/hiztx" target="_blank" rel="external">前端汪汪</a></strong><br><strong>本文为作者原创转载请注明出处：<a href="http://hiztx.top/2017/01/15/jsonp/" target="_blank" rel="external">http://hiztx.top/2017/01/15/jsonp/</a></strong></p>
 <hr>
-<p>&emsp;&emsp;本文介绍了什么是跨域，为什么要跨域，以及跨域的一种常用方法JSONP的原理。</p>
+<p>&emsp;&emsp;本文介绍了什么是跨域，为什么要跨域，以及跨域的一种常用方法JSONP的原理。<br><a id="more"></a></p>
 <h1 id="一、什么是跨域？为什么要跨域？"><a href="#一、什么是跨域？为什么要跨域？" class="headerlink" title="一、什么是跨域？为什么要跨域？"></a>一、什么是跨域？为什么要跨域？</h1><h2 id="什么是跨域？"><a href="#什么是跨域？" class="headerlink" title="什么是跨域？"></a>什么是跨域？</h2><p>&emsp;&emsp;既然是跨域，那么肯定是从一个域到另一个域。那么首先要知道满足什么条件才是同一个域。如果两个页面拥有相同的协议，端口和域名，那么这两个页面就属于同一个源（origin），JavaScript允许这种同源页面的数据互相通信。例如你要访问<a href="https://www.baidu.com/" target="_blank" rel="external">百度首页</a>。</p>
 <blockquote>
 <p><a href="https://www.baidu.com" target="_blank" rel="external">https://www.baidu.com</a><br>https是协议<br>https协议的默认端口为443（不显示）<br>www.baidu.com为域名</p>
