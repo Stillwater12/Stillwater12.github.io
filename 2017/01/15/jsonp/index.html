@@ -18,7 +18,7 @@
 <meta property="og:description" content="前言博主博客：Stillwater的博客知乎专栏：前端汪汪本文为作者原创转载请注明出处：http://hiztx.top/2017/01/15/jsonp/
 
 &amp;emsp;&amp;emsp;本文介绍了什么是跨域，为什么要跨域，以及跨域的一种常用方法JSONP的原理。">
-<meta property="og:updated_time" content="2017-01-15T02:40:54.000Z">
+<meta property="og:updated_time" content="2017-01-15T02:45:21.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="跨域方法总结（一），JSONP">
 <meta name="twitter:description" content="前言博主博客：Stillwater的博客知乎专栏：前端汪汪本文为作者原创转载请注明出处：http://hiztx.top/2017/01/15/jsonp/
@@ -188,7 +188,10 @@
 <blockquote>
 <p><a href="https://www.baidu.com" target="_blank" rel="external">https://www.baidu.com</a><br>https是协议<br>https协议的默认端口为443（不显示）<br>www.baidu.com为域名</p>
 </blockquote>
-<p>注：一般端口默认为不显示，但是你可以尝试输入<a href="https://www.baidu.com:80，发现无法访问。因为80端口默认为http协议端口。" target="_blank" rel="external">https://www.baidu.com:80，发现无法访问。因为80端口默认为http协议端口。</a></p>
+<p>注：一般端口默认为不显示，但是你可以尝试输入以下网址，发现无法访问。因为80端口默认为http协议端口。</p>
+<blockquote>
+<p><a href="https://www.baidu.com:80" target="_blank" rel="external">https://www.baidu.com:80</a></p>
+</blockquote>
 <p>&emsp;&emsp;现在知道了什么是同一个域，那么就可以解释什么是跨域。只要协议、域名、端口有任何一个不同，都被当作是不同的域，之间的请求就是跨域操作。</p>
 <h2 id="为什么要跨域？"><a href="#为什么要跨域？" class="headerlink" title="为什么要跨域？"></a>为什么要跨域？</h2><p>&emsp;&emsp;相信很多人都听过，<strong>同源策略</strong>。出于安全考虑，浏览器对JavaScript的很多功能进行了限制，其中一条就是，不同域之间不予许进行数据通信。虽然补全了安全漏洞，但是这个限制给前端开发带来了许多不便。例如：</p>
 <blockquote>
